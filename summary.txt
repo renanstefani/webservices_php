@@ -1,0 +1,6 @@
+Configurei um ambiente com MySQL
+Configurei a conexão com php
+Inseri dados na tabela
+Criei um script para listar dados de uma tabela
+Realizamos a conexão com o DB através do require_once
+Realizamos um consulta com o prepare($link, 'requisição')

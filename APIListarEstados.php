@@ -1,10 +1,12 @@
 <?php
+//definimos a compatibilidade apontando o tipo de conteúdo:
+header('Content-type: application/json');
+
 
 // Conexão com o DB
 require_once('dbConnect.php');
 
 // Definindo UTF8 e evitando conflitos
-
 mysqli_set_charset($conn, $charset);
 
 //criamos um array vazio para receber o select
@@ -13,13 +15,13 @@ $response = array();
 //realizando a consulta
 $stmt = mysqli_prepare($conn, 'SELECT id, sigla, nome FROM estado');
 
-//realiza o select
+//executando o select
 mysqli_stmt_execute($stmt);
 
-//armazena a resposta
+//armazenando a resposta
 mysqli_stmt_store_result($stmt);
 
-//define os dados recebidos
+//definindo os dados recebidos
 mysqli_stmt_bind_result(
     $stmt,
     $id,

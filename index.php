@@ -1,3 +1,3 @@
 <?php
-echo "1º Estudo de Caso - Listar2 CURSO UDEMY FUNCIONOU"
+echo "Página voltada a estudos de Web Services em PHP"
 ?>

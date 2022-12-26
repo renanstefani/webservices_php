@@ -5,54 +5,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //definimos a compatibilidade apontando o tipo de conteúdo:
     header('Content-type: application/json');
 
-    // Conexão com o DB
-    require_once('dbConnect.php');
+    // TOKEN
+    $api_token = "renanstefanidev";
 
-    // Definindo UTF8 e evitando conflitos
-    mysqli_set_charset($conn, $charset);
+    if ($api_token == 'renanstefanidev') {
 
-    //criamos um array vazio para receber o select
-    $response = array();
+        // Conexão com o DB
+        require_once('dbConnect.php');
 
-    //realizando a consulta
-    $stmt = mysqli_prepare($conn, 'SELECT id, sigla, nome FROM estado');
+        // Definindo UTF8 e evitando conflitos
+        mysqli_set_charset($conn, $charset);
 
-    //executando o select
-    mysqli_stmt_execute($stmt);
+        //criamos um array vazio para receber o select
+        $response = array();
 
-    //armazenando a resposta
-    mysqli_stmt_store_result($stmt);
+        //realizando a consulta
+        $stmt = mysqli_prepare($conn, 'SELECT id, sigla, nome FROM estado');
 
-    //definindo os dados recebidos
-    mysqli_stmt_bind_result(
-        $stmt,
-        $id,
-        $sigla,
-        $nome
-    );
+        //executando o select
+        mysqli_stmt_execute($stmt);
 
-    // var_dump($stmt);
+        //armazenando a resposta
+        mysqli_stmt_store_result($stmt);
 
-    // se o numero de linhas for maior que zero possui dado a ser retornado
-    if (mysqli_stmt_num_rows($stmt) > 0) {
+        //definindo os dados recebidos
+        mysqli_stmt_bind_result(
+            $stmt,
+            $id,
+            $sigla,
+            $nome
+        );
 
-        while (mysqli_stmt_fetch($stmt)) {
+        // var_dump($stmt);
 
-            array_push(
-                $response,
-                array(
-                    "id" => $id,
-                    "sigla" => $sigla,
-                    "nome" => $nome
-                )
-            );
+        // se o numero de linhas for maior que zero possui dado a ser retornado
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+
+            while (mysqli_stmt_fetch($stmt)) {
+
+                array_push(
+                    $response,
+                    array(
+                        "id" => $id,
+                        "sigla" => $sigla,
+                        "nome" => $nome
+                    )
+                );
+            }
+
+            echo json_encode($response);
+
+        } else {
+            echo json_encode($response);
         }
 
-        echo json_encode($response);
 
     } else {
+        $response['auth_token'] = false;
+
         echo json_encode($response);
     }
+
 
 }
 ?>
